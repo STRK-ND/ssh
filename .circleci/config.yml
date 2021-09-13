@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   android:
    docker:
-      - image: dopaemon/bionic:latest
+      - image: dopaemon/ubuntu:latest
    steps:
       - run:
           name: Install Ping
@@ -11,12 +11,15 @@ jobs:
             sudo apt update
             sudo rm -rf ba.sh
             sudo apt install wget -y
+            sudo apt install nano -y
             sudo apt install python git unzip -y
       - run:
           name: Ping
           no_output_timeout: 20m
           command: |
             git clone https://github.com/KernelPanic-OpenSource/ssh.git py
+            git config --global user.name "$GIT_USERNAME"
+            git config --global user.email "$GIT_EMAIL"
             cd py
             python time.py &
             sleep 4.5h
